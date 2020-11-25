@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Delay Time Calculator | By Creative Plus</title>
+
+	<meta name="keywords" content="">
+    <meta name="description" content="">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+	<link href="./style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Righteous&display=swap" rel="stylesheet">
+
+    <!-- P5js -->
+	<script type="text/javascript" src="./js/p5.js"></script>
+	<!-- Tonejs -->
+    <script type="text/javascript" src="./js/Tone.js"></script>
+	
+	<script type="text/javascript" src="./P5-DelayTimeCal-snap.js"></script>
+
+	<!-- ファビコン -->
+	<link rel="icon" href="./icon/favicon.ico">
+ 
+	<!-- スマホ用アイコン -->
+	<link rel="apple-touch-icon" sizes="180x180" href="./icon/apple-touch-icon.png">
+
+	<!-- Global site tag (gtag.js) - Google Analytics 
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-115360150-1"></script>
+	<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-115360150-1');
+	</script> -->
+
+  </head>
+  <body>
+
+<div class="container-fluid">
+	<!-- ヘッダー -->
+	<div class="row sticky-top">
+		<div class="col-md-1 page-header">
+		</div>
+		<div class="col-md-10 page-header">
+			<nav class="navbar navbar-expand-sm navbar-dark">
+				<a class="navbar-brand" href="https://creative-plus.net/">Creative Plus</a>
+				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+					<ul class="navbar-nav">
+						<li class="nav-item">
+							<a class="nav-link" href="https://blog.creative-plus.net/">Blog Media</span></a>
+						</li>
+						<!--<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								Tools
+							</a>
+							<div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+								<a class="dropdown-item" href="./index.html">Midi Number Tools</a>
+								<a class="dropdown-item" href="#">New Tools</a>
+							</div>
+						</li>-->
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<div class="col-md-1 page-header">
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12 top-space">
+			<h1><div style="font-size: 5.5vw">Delay Time Calculator</div></h1>
+		</div>
+	</div>
+	<!-- コンテンツ -->
+	<div class="row">
+		<div class="col-md-1"><!-- 全体余白 -->
+		</div>
+		<div class="col-md-10"><!-- メインコンテンツ　ここから -->
+			<div class="row"><!-- コンテンツタイトル -->
+				<div class="col-md-12 contents-title anchor">
+					<h2>テンポに応じた音符の長さを判定します</h2>
+				</div>
+			</div>
+			<div class="row contents-margin">
+				<div class="col-md-6">
+					Determines the length of a note according to the tempo.<br>
+					<h2>
+						How to use
+					</h2>
+					<p>
+						<ol>
+							<li>Set the tempo(BPM)</li>
+						</ol>
+						Please use it for calculating the delay time.<br>
+						<br>
+						<b>If you press the "reference" button, you can hear the delay sound of the calculated length in addition to the quarter note "C" sound.<br>
+							At the same time, it draws an image that allows you to imagine the sound.</b><br>
+							have fun!<br>
+						<br>
+					<div class="jpn-text">
+						<ol>
+							<li>テンポを設定します(BPM)</li>
+						</ol>
+						ディレイタイムの計算などにお使いください。<br>
+						<br>
+						<b>「reference」ボタンを押すと4分音符の「C」の音に計算結果の長さのディレイ音を聴くことができます。<br>
+							また、同時に音をイメージできるような映像を描画します。</b><br>
+					</div>
+					</p>				
+				</div>
+				<div class="col-md-6">
+					<h2>
+						Setting
+					</h2>
+					<font size="4">BPM (tempo)：<input type="text" id="input_bpm" value="120" size="3" maxlength="3" class="border rounded"></font>
+					<br>
+    				<br>
+					<h2>
+						Result
+					</h2>
+					<table class="tbl-r02"><!-- https://b-risk.jp/blog/2018/07/table-css/ -->
+						<tr>
+						  <th>Whole note</th>
+						  <td class="bravura">&#xE1D2;</td>
+						  <td id="output_Beat_1"></td>
+						  <td><input type="button" onclick="playSynth_1n()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Dotted Half note</th>
+						  <td class="bravura">&#xE1D3;&nbsp;&#xE1FC;</td>
+						  <td id="output_Beat_2_dot"></td>
+						  <td><input type="button" onclick="playSynth_2dot()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Half note</th>
+						  <td class="bravura">&#xE1D3;</td>
+						  <td id="output_Beat_2"></td>
+						  <td><input type="button" onclick="playSynth_2n()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Dotted Quarter note</th>
+						  <td class="bravura">&#xE1D5;&nbsp;&#xE1FC;</td>
+						  <td id="output_Beat_4_dot"></td>
+						  <td><input type="button" onclick="playSynth_4dot()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Quarter note</th>
+						  <td class="bravura">&#xE1D5;</td>
+						  <td id="output_Beat_4"></td>
+						  <td><input type="button" onclick="playSynth_4n()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Dotted Eighth note</th>
+						  <td class="bravura">&#xE1D7;&#xE1FC;</td>
+						  <td id="output_Beat_8_dot"></td>
+						  <td><input type="button" onclick="playSynth_8dot()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Eighth note</th>
+						  <td class="bravura">&#xE1D7;</td>
+						  <td id="output_Beat_8"></td>
+						  <td><input type="button" onclick="playSynth_8n()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Dotted Sixteenth note</th>
+						  <td class="bravura">&#xE1D9;&#xE1FC;</td>
+						  <td id="output_Beat_16_dot"></td>
+						  <td><input type="button" onclick="playSynth_16dot()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Sixteenth note</th>
+						  <td class="bravura">&#xE1D9;</td>
+						  <td id="output_Beat_16"></td>
+						  <td><input type="button" onclick="playSynth_16n()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Dotted 32nd note</th>
+						  <td class="bravura">&#xE1DB;&#xE1FC;</td>
+						  <td id="output_Beat_32_dot"></td>
+						  <td><input type="button" onclick="playSynth_32dot()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>32nd note</th>
+						  <td class="bravura">&#xE1DB;</td>
+						  <td id="output_Beat_32"></td>
+						  <td><input type="button" onclick="playSynth_32n()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Double triplet</th>
+						  <td class="bravura">&#xE1D3;&#xE201;&nbsp;&#xE1D3;&#xE202;&nbsp;&nbsp;&#xE1D3;&#xE203;</td>
+						  <td id="output_Beat_2_triplet"></td>
+						  <td><input type="button" onclick="playSynth_2t()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>Quarter triplet</th>
+						  <td class="bravura">&#xE1D5;&#xE201;&nbsp;&#xE1D5;&#xE202;&nbsp;&nbsp;&#xE1D5;&#xE203;</td>
+						  <td id="output_Beat_4_triplet"></td>
+						  <td><input type="button" onclick="playSynth_4t()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>8th triplet</th>
+						  <td class="bravura">&#xE1F1;&#xE1F8;&#xE1F3;&#xE202;&#xE1F8;&#xE1F3;</td>
+						  <td id="output_Beat_8_triplet"></td>
+						  <td><input type="button" onclick="playSynth_8t()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>16th triplet</th>
+						  <td class="bravura">&#xE1F1;&#xE1FA;&#xE1F5;&#xE202;&#xE1FA;&#xE1F5;</td>
+						  <td id="output_Beat_16_triplet"></td>
+						  <td><input type="button" onclick="playSynth_16t()" value="reference" class="btn btn-primary"></td>
+						</tr>
+						<tr>
+						  <th>32th triplet</th>
+						  <td class="bravura">&#xE1F1;&#xE1FB;&#xE1F6;&#xE202;&#xE1FB;&#xE1F6;</td>
+						  <td id="output_Beat_32_triplet"></td>
+						  <td><input type="button" onclick="playSynth_32t()" value="reference" class="btn btn-primary"></td>
+						</tr>
+					</table>
+				</div>		
+			</div>
+		</div><!-- メインコンテンツ　ここまで -->
+		<div class="col-md-1"><!-- 全体余白 -->
+		</div>
+	</div>
+	<div class="row"><!-- Footer -->
+		<div class="col-md-12 page-footer">
+			<div align="center" style="font-size:75%">Copyright© Creative Plus , 2020 All Rights Reserved.</div>
+		</div>
+	</div>
+</div>
+
+
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+	
+</body>
+</html>
